@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="Angular大观园">
 <meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-30T14:37:08.000Z">
+<meta property="og:updated_time" content="2017-07-30T15:57:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hello World">
 <meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
@@ -377,6 +377,27 @@
     <div>
       
         
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将让我在冬天有冰棍吃啦，^_^！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://otwtmlrnk.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E8%BD%AC%E8%B4%A6.jpeg" alt="zxhfighter WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://otwtmlrnk.bkt.clouddn.com/%E6%94%AF%E4%BB%98%E5%AE%9D%E8%BD%AC%E8%B4%A6.jpeg" alt="zxhfighter Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
     </div>
@@ -425,9 +446,20 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
+  <div id="container"></div>
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+  var gitment = new Gitment({
+    owner: 'zxhfighter',
+    repo: 'https://github.com/zxhfighter/zxhfighter.github.io.git',
+    oauth: {
+      client_id: '7fc67caf2df967fab029',
+      client_secret: '70769447d9845a485dffda6fd22d08f1028b0525',
+    },
+  })
+  gitment.render('container')
+  </script>
 
 
         </div>
@@ -495,10 +527,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
