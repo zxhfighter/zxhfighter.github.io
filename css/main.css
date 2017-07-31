@@ -997,11 +997,15 @@ pre .javascript .function {
 }
 .site-title {
   display: inline-block;
+  width: 156px;
+  height: 50px;
   vertical-align: top;
   line-height: 36px;
   font-size: 20px;
   font-weight: normal;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  text-indent: -9999px;
+  background: url("../images/sprites.png") no-repeat;
 }
 .site-subtitle {
   margin-top: 10px;
@@ -1794,7 +1798,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #aa11fb;
+  background: #9a1c91;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2724,7 +2728,7 @@ pre .javascript .function {
   position: relative;
 }
 .site-meta {
-  padding: 20px 0;
+  padding: 10px 0 5px 0;
   color: #fff;
   background: #036380;
 }
