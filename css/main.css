@@ -432,6 +432,13 @@ body {
   min-height: 100%;
   background: #e6e2af;
 }
+.container.fullscreen .header,
+.container.fullscreen .sidebar {
+  display: none;
+}
+.container.fullscreen .content-wrap {
+  width: 960px;
+}
 .header-inner {
   margin: 0 auto;
   padding: 100px 0 70px;
@@ -1798,7 +1805,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #e4e287;
+  background: #125ce4;
 }
 .links-of-blogroll {
   font-size: 13px;
