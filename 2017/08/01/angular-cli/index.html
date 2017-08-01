@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="angular-cli,angular," />
 
 
 
@@ -93,16 +93,18 @@
 
 
 
-<meta name="description" content="frontend, angular, angularjs, typescript, rxjs, spa, ionic, vue, vue.js, react, native react, nativescript">
-<meta property="og:type" content="website">
-<meta property="og:title" content="前端花园">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="angular-cli 是一个能帮助你快速创建 Angular 项目的脚手架工具。并提供了项目创建、开发、托管、构建、Lint、测试等一套完整的工作流。 本篇博客将介绍一些 angular-cli 的使用注意事项，希望这篇博客能够节省你一些时间。 Node 和 NPM 版本要求12$ node -v$ npm -v 其中 Node 版本需要 6.9.0+，NPM 需要 3.0.0+。 安装如果之前">
+<meta name="keywords" content="angular-cli,angular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angular-cli 指南">
+<meta property="og:url" content="http://yoursite.com/2017/08/01/angular-cli/index.html">
 <meta property="og:site_name" content="前端花园">
-<meta property="og:description" content="frontend, angular, angularjs, typescript, rxjs, spa, ionic, vue, vue.js, react, native react, nativescript">
+<meta property="og:description" content="angular-cli 是一个能帮助你快速创建 Angular 项目的脚手架工具。并提供了项目创建、开发、托管、构建、Lint、测试等一套完整的工作流。 本篇博客将介绍一些 angular-cli 的使用注意事项，希望这篇博客能够节省你一些时间。 Node 和 NPM 版本要求12$ node -v$ npm -v 其中 Node 版本需要 6.9.0+，NPM 需要 3.0.0+。 安装如果之前">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-01T03:41:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前端花园">
-<meta name="twitter:description" content="frontend, angular, angularjs, typescript, rxjs, spa, ionic, vue, vue.js, react, native react, nativescript">
+<meta name="twitter:title" content="angular-cli 指南">
+<meta name="twitter:description" content="angular-cli 是一个能帮助你快速创建 Angular 项目的脚手架工具。并提供了项目创建、开发、托管、构建、Lint、测试等一套完整的工作流。 本篇博客将介绍一些 angular-cli 的使用注意事项，希望这篇博客能够节省你一些时间。 Node 和 NPM 版本要求12$ node -v$ npm -v 其中 Node 版本需要 6.9.0+，NPM 需要 3.0.0+。 安装如果之前">
 
 
 
@@ -130,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/01/angular-cli/"/>
 
 
 
 
 
-  <title>前端花园</title>
+  <title>angular-cli 指南 | 前端花园</title>
   
 
 
@@ -161,9 +163,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -246,9 +246,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -274,9 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/01/angular-cli/" itemprop="url">angular-cli 指南</a></h1>
+          <h1 class="post-title" itemprop="name headline">angular-cli 指南</h1>
         
 
         <div class="post-meta">
@@ -345,9 +343,7 @@
       
 
       
-        
-          
-            <p><a href="https://github.com/angular/angular-cli" target="_blank" rel="external">angular-cli</a> 是一个能帮助你快速创建 Angular 项目的脚手架工具。并提供了项目创建、开发、托管、构建、Lint、测试等一套完整的工作流。</p>
+        <p><a href="https://github.com/angular/angular-cli" target="_blank" rel="external">angular-cli</a> 是一个能帮助你快速创建 Angular 项目的脚手架工具。并提供了项目创建、开发、托管、构建、Lint、测试等一套完整的工作流。</p>
 <p>本篇博客将介绍一些 angular-cli 的使用注意事项，希望这篇博客能够节省你一些时间。</p>
 <h2 id="Node-和-NPM-版本要求"><a href="#Node-和-NPM-版本要求" class="headerlink" title="Node 和 NPM 版本要求"></a>Node 和 NPM 版本要求</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> node -v</div><div class="line"><span class="meta">$</span> npm -v</div></pre></td></tr></table></figure>
 <p>其中 Node 版本需要 6.9.0+，NPM 需要 3.0.0+。</p>
@@ -481,42 +477,79 @@
 <li>使用代理来进行请求拦截，适用于 mock 数据和真实数据切换等场景</li>
 </ul>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将让我在冬天有冰棍吃啦，^_^！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://otwtmlrnk.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E8%BD%AC%E8%B4%A6.jpeg" alt="zxhfighter WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://otwtmlrnk.bkt.clouddn.com/%E6%94%AF%E4%BB%98%E5%AE%9D%E8%BD%AC%E8%B4%A6.jpeg" alt="zxhfighter Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
     </div>
+  </div>
 
-    <div>
+
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/angular-cli/" rel="tag"># angular-cli</a>
+          
+            <a href="/tags/angular/" rel="tag"># angular</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -524,6 +557,21 @@
 
 
           
+  <div id="container"></div>
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+  var gitment = new Gitment({
+    owner: 'zxhfighter',
+    repo: 'zxhfighter.github.io',
+    oauth: {
+      client_id: '7fc67caf2df967fab029',
+      client_secret: '70769447d9845a485dffda6fd22d08f1028b0525',
+    },
+  })
+  gitment.render('container')
+  </script>
+
 
         </div>
         
@@ -544,8 +592,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -607,6 +664,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-和-NPM-版本要求"><span class="nav-number">1.</span> <span class="nav-text">Node 和 NPM 版本要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用"><span class="nav-number">3.</span> <span class="nav-text">创建应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动应用"><span class="nav-number">4.</span> <span class="nav-text">启动应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实时更新-Live-Reload"><span class="nav-number">5.</span> <span class="nav-text">实时更新(Live Reload)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#风格检查-Lint"><span class="nav-number">6.</span> <span class="nav-text">风格检查(Lint)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建-Build"><span class="nav-number">7.</span> <span class="nav-text">构建(Build)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加自己的环境变量"><span class="nav-number">8.</span> <span class="nav-text">添加自己的环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-Test"><span class="nav-number">9.</span> <span class="nav-text">测试(Test)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚手架-Scaffold"><span class="nav-number">10.</span> <span class="nav-text">脚手架(Scaffold)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义脚手架"><span class="nav-number">11.</span> <span class="nav-text">自定义脚手架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热加载-HMR"><span class="nav-number">12.</span> <span class="nav-text">热加载(HMR)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理-Proxy"><span class="nav-number">13.</span> <span class="nav-text">代理(Proxy)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动多个APP"><span class="nav-number">14.</span> <span class="nav-text">启动多个APP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">15.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -727,10 +800,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
