@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="primeng," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="primeng 是目前市面上一个比较优秀的 Angular 组件库，组件种类多且全，可定制化程度高，文档也写得通俗易懂。 本文将对 primeng 组件库进行简单分析，抛砖引玉，希望能对编写你自己的组件库有所帮助。 项目结构进入项目目录后，运行 tree -L 1 .（如果没有安装 tree 命令，使用 brew install tree 安装），查看目录结构。 12345678910111213">
+<meta name="keywords" content="primeng">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular 组件库 primeng 剖析">
+<meta property="og:url" content="http://yoursite.com/2017/08/05/primeng-analysis/index.html">
+<meta property="og:site_name" content="前端花园">
+<meta property="og:description" content="primeng 是目前市面上一个比较优秀的 Angular 组件库，组件种类多且全，可定制化程度高，文档也写得通俗易懂。 本文将对 primeng 组件库进行简单分析，抛砖引玉，希望能对编写你自己的组件库有所帮助。 项目结构进入项目目录后，运行 tree -L 1 .（如果没有安装 tree 命令，使用 brew install tree 安装），查看目录结构。 12345678910111213">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-05T04:32:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular 组件库 primeng 剖析">
+<meta name="twitter:description" content="primeng 是目前市面上一个比较优秀的 Angular 组件库，组件种类多且全，可定制化程度高，文档也写得通俗易懂。 本文将对 primeng 组件库进行简单分析，抛砖引玉，希望能对编写你自己的组件库有所帮助。 项目结构进入项目目录后，运行 tree -L 1 .（如果没有安装 tree 命令，使用 brew install tree 安装），查看目录结构。 12345678910111213">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/05/primeng-analysis/"/>
+
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9b56b7702f31d1fe7fab8b57548b41de";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  <title>Angular 组件库 primeng 剖析 | 前端花园</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端花园</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">frontend garden</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="fullscreen">
+            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+            &nbsp;&nbsp;<span id="fullscreen-text">全屏阅读</span>
+          </div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/05/primeng-analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zxhfighter">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端花园">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Angular 组件库 primeng 剖析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-05T00:00:00+08:00">
+                2017-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/angular/" itemprop="url" rel="index">
+                    <span itemprop="name">angular</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/angular/primeng/" itemprop="url" rel="index">
+                    <span itemprop="name">primeng</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="http://primefaces.org/primeng/" target="_blank" rel="external">primeng</a> 是目前市面上一个比较优秀的 Angular 组件库，组件种类多且全，可定制化程度高，文档也写得通俗易懂。</p>
+<p>本文将对 primeng 组件库进行简单分析，抛砖引玉，希望能对编写你自己的组件库有所帮助。</p>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p>进入项目目录后，运行 <code>tree -L 1 .</code>（如果没有安装 <code>tree</code> 命令，使用 <code>brew install tree</code> 安装），查看目录结构。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">$ tree -L 1 .</div><div class="line">.</div><div class="line">├── .angular-cli.json      --- angular-cli 配置文件</div><div class="line">├── LICENSE.md             --- 使用 MIT LICENSE</div><div class="line">├── README.md              --- README</div><div class="line">├── e2e                    --- 基于 Protractor 的集成（端到端）测试，包括几个基础组件</div><div class="line">├── gulpfile.js            --- 使用 gulp 来处理一些 css 和 image 资源</div><div class="line">├── karma.conf.js          --- karma 测试配置文件</div><div class="line">├── package.json           --- package.json</div><div class="line">├── primeng.d.ts           --- 使用 es2015 模块语法导出所有组件中定义的对象</div><div class="line">├── primeng.js             --- 使用 commonjs 模块语法导出所有组件中定义的对象</div><div class="line">├── protractor.conf.js     --- e2e 集成测试配置文件，会运行 e2e 中定义的测试 case</div><div class="line">├── src                    --- 源目录</div><div class="line">├── tsconfig-aot.json      --- 编译配置文件，使用 aot 构建，暂时没有看到使用的地方</div><div class="line">├── tsconfig-release.json  --- 编译配置文件，暂时没有看到使用的地方</div><div class="line">├── tsconfig.json          --- 编译基本配置，会被 src 和 e2e 目录下的配置文件所继承（extends）</div><div class="line">└── tslint.json            --- lint 配置</div></pre></td></tr></table></figure>
+<p>可以看出，primeng 项目结构也采用了 angular-cli 搭建，相比 angular-cli 初始化的项目，多了如下四个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">primeng.d.ts</div><div class="line">primeng.js</div><div class="line">tsconfig-aot.json</div><div class="line">tsconfig-release.json</div></pre></td></tr></table></figure>
+<p>不过暂时没有看到 <code>tsconfig-aot.json</code> 和 <code>tsconfig-release.json</code> 两个编译配置文件用在何处。</p>
+<p>再来看下 src 目录下的文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$ tree -L 2 .</div><div class="line"></div><div class="line">.</div><div class="line">├── app</div><div class="line">│   ├── components            --- 组件库，每个组件一个模块</div><div class="line">│   └── showcase              --- demo库</div><div class="line">├── assets                    --- 全局资源，包括图片(images)和主题样式(themes)</div><div class="line">│   ├── components            --- 组件库用到的资源</div><div class="line">│   └── showcase              --- demo库用到的资源</div><div class="line">├── environments              --- 环境变量配置</div><div class="line">│   ├── environment.prod.ts   --- 生成环境变量配置</div><div class="line">│   └── environment.ts        --- 开发环境变量配置</div><div class="line">├── favicon.png</div><div class="line">├── index.html                --- 主页</div><div class="line">├── main.ts                   --- 入口文件</div><div class="line">├── polyfills.ts              --- polyfills，包括 core-js、zone.js、intl、web-animations-js 等</div><div class="line">├── styles.css                --- 全局样式</div><div class="line">├── test.ts                   --- 测试入口文件</div><div class="line">├── tsconfig.app.json         --- 主项目编译文件</div><div class="line">├── tsconfig.spec.json        --- 测试编译文件</div><div class="line">├── typings.d.ts              --- 自定义类型</div><div class="line">└── upload.php                --- 上传处理页</div></pre></td></tr></table></figure>
+<h2 id="组件设计"><a href="#组件设计" class="headerlink" title="组件设计"></a>组件设计</h2><p>组件的代码位于 <code>src/app/components</code> 目录中，组件的一些设计思路如下：</p>
+<ul>
+<li><strong>一个组件一个模块</strong></li>
+</ul>
+<p>这样可以很方便的按需引入组件，也利于组件的开发和维护。</p>
+<p>另外，为了方便，在一个文件中定义了多个组件（一般是该组件的一些依赖组件），以及该包含该组件的模块。</p>
+<ul>
+<li>组件样式<strong>全局引入</strong></li>
+</ul>
+<p>组件样式不在组件中单独引入，那样会给所有组件样式添加默认的 scope 限定（<code>encapsulation = ViewEncapsulation.Emulated</code>），如果外层需要覆盖内层组件样式，会很不方便。因此组件的样式全部在 <code>src/styles.css</code> 中引入。当然也可以将 <code>encapsulation</code> 设置成 <code>ViewEncapsulation.None</code> 来避免 scope 限定，这两种方式二选一即可。</p>
+<p><code>styles.css</code> 内容如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">import</span> <span class="string">'assets/showcase/css/primeng.css'</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">'assets/showcase/css/code.css'</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">'assets/showcase/css/site.css'</span>;</div></pre></td></tr></table></figure>
+<p><code>assets/showcase/css/primeng.css</code> 文件引入了所有 components 的样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">import</span> <span class="string">'../../../app/components/common/common.css'</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">'../../../app/components/autocomplete/autocomplete.css'</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">'../../../app/components/accordion/accordion.css'</span>;</div><div class="line"><span class="comment">/* ... */</span></div></pre></td></tr></table></figure>
+<ul>
+<li>全部内联模板</li>
+</ul>
+<p>primeng 全部将模板写成了内联模板，优点是文件内容紧凑，不会分散注意力；缺点就是缺乏语法高亮，编写HTML模板无法使用 emmet 等自动语法提示。</p>
+<p>在组件库中，有两个文件夹值得特别注意。</p>
+<h3 id="common-文件夹"><a href="#common-文件夹" class="headerlink" title="common 文件夹"></a>common 文件夹</h3><p>在 <code>common.css</code> 中定义了通用样式，例如 <code>.ui-widget</code>、<code>.ui-helper-reset</code>等，这些通用样式对于更换主题意义重大。</p>
+<p>此外，其余大部分文件定义了组件库使用的一些全局性类型接口，例如广泛使用的 <code>menuitem</code> 结构。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// menuitem.ts</span></div><div class="line"><span class="keyword">export</span> interface MenuItem &#123;</div><div class="line">    label?: string;</div><div class="line">    icon?: string;</div><div class="line">    command?: <span class="function">(<span class="params">event?: any</span>) =&gt;</span> <span class="keyword">void</span>;</div><div class="line">    url?: string;</div><div class="line">    routerLink?: any;</div><div class="line">    items?: MenuItem[];</div><div class="line">    expanded?: boolean;</div><div class="line">    disabled?: boolean;</div><div class="line">    visible?: boolean;</div><div class="line">    target?: string;</div><div class="line">    routerLinkActiveOptions?: any;</div><div class="line">    separator?: boolean;</div><div class="line">    badge?: string;</div><div class="line">    badgeStyleClass?: string;</div><div class="line">    style?:any;</div><div class="line">    styleClass?:string;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>另外，在 <code>shared.ts</code> 中，定义了一些通用的模板组件，例如 <code>p-header</code>、<code>p-column</code>、<code>p-templateLoader</code> 等。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// shared.ts</span></div><div class="line">@Component(&#123;</div><div class="line">    selector: <span class="string">'p-header'</span>,</div><div class="line">    template: <span class="string">'&lt;ng-content&gt;&lt;/ng-content&gt;'</span></div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Header</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">@Component(&#123;</div><div class="line">    selector: <span class="string">'p-footer'</span>,</div><div class="line">    template: <span class="string">'&lt;ng-content&gt;&lt;/ng-content&gt;'</span></div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Footer</span> </span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// ...</span></div></pre></td></tr></table></figure>
+<h3 id="dom-文件夹"><a href="#dom-文件夹" class="headerlink" title="dom 文件夹"></a>dom 文件夹</h3><p>尽管不推荐直接操作 dom，但是对于一个组件库来说，操作 dom 是无法避免的，因此 <code>domhandler.ts</code> 文件封装了大部分 dom 操作。</p>
+<ul>
+<li><code>addClass</code></li>
+<li><code>addMultipleClasses</code></li>
+<li><code>removeClass</code></li>
+<li><code>hasClass</code></li>
+<li><code>siblings</code></li>
+<li><code>find</code></li>
+<li><code>findSingle</code></li>
+<li><code>index</code></li>
+<li><code>relativePosition</code></li>
+<li><code>absolutePosition</code></li>
+<li><code>getHiddenElementOuterHeight</code></li>
+<li><code>getHiddenElementOuterWidth</code></li>
+<li><code>getHiddenElementDimensions</code></li>
+<li><code>scrollInView</code></li>
+<li><code>fadeIn</code></li>
+<li><code>fadeOut</code></li>
+<li><code>getWindowScrollTop</code></li>
+<li><code>getWindowScrollLeft</code></li>
+<li><code>matches</code></li>
+<li><code>getOuterWidth</code></li>
+<li><code>getHorizontalPadding</code></li>
+<li><code>getHorizontalMargin</code></li>
+<li><code>innerWidth</code></li>
+<li><code>width</code></li>
+<li><code>getInnerHeight</code></li>
+<li><code>getOuterHeight</code></li>
+<li><code>getHeight</code></li>
+<li><code>getWidth</code></li>
+<li><code>getViewport</code></li>
+<li><code>getOffset</code></li>
+<li><code>getUserAgent</code></li>
+<li><code>isIE</code></li>
+<li><code>appendChild</code></li>
+<li><code>removeChild</code></li>
+<li><code>isElement</code></li>
+<li><code>calculateScrollbarWidth</code></li>
+<li><code>invokeElementMethod</code></li>
+<li><code>clearSelection</code></li>
+</ul>
+<p>看到这么一大串方法列表，有人会疑惑，这不就是提取了 jQuery 的一部分功能吗，为什么不直接引入 jQuery 呢？</p>
+<p>这里就涉及到一个库的设计原则：<strong>组件库的设计应该纯粹，能够拿来开箱即用，而不用再去配置组件库的一些依赖</strong>。</p>
+<p>如果要引入 jQuery，如果使用 es2015 的模块按需引用，那么需要手动去配置 jQuery 依赖；如果采取全量引入，那就需要在构建时将 jQuery 代码打包到最终的构建输出中，这并不是一个很好的设计方案。</p>
+<p>因此，这里自己实现了一个 jQuery 的 mini 集合来操作 dom。</p>
+<h3 id="组件例子"><a href="#组件例子" class="headerlink" title="组件例子"></a>组件例子</h3><p>以组件 accordion 为例。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// accordion.ts</span></div><div class="line"><span class="comment">// import list</span></div><div class="line"></div><div class="line">@Component(&#123;</div><div class="line">    selector: <span class="string">'p-accordion'</span>,</div><div class="line">    template: <span class="string">`</span></div><div class="line"><span class="string">        &lt;div [ngClass]="'ui-accordion ui-widget ui-helper-reset'" [ngStyle]="style" [class]="styleClass"&gt;</span></div><div class="line"><span class="string">            &lt;ng-content&gt;&lt;/ng-content&gt;</span></div><div class="line"><span class="string">        &lt;/div&gt;</span></div><div class="line"><span class="string">    `</span>,</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Accordion</span> <span class="title">implements</span> <span class="title">BlockableUI</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">@Component(&#123;</div><div class="line">    selector: <span class="string">'p-accordionTab'</span>,</div><div class="line">    template: <span class="string">`</span></div><div class="line"><span class="string">        &lt;div class="ui-accordion-header"&gt;</span></div><div class="line"><span class="string">        &lt;/div&gt;</span></div><div class="line"><span class="string">        &lt;div class="ui-accordion-content-wrapper"&gt;</span></div><div class="line"><span class="string">        &lt;/div&gt;</span></div><div class="line"><span class="string">    `</span></div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AccordionTab</span> <span class="title">implements</span> <span class="title">OnDestroy</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">@NgModule(&#123;</div><div class="line">    imports: [CommonModule],</div><div class="line">    exports: [Accordion,AccordionTab],</div><div class="line">    declarations: [Accordion,AccordionTab]</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AccordionModule</span> </span>&#123; &#125;</div></pre></td></tr></table></figure>
+<p>文件中定义了一个模块 <code>AccordionModule</code>，容器组件 <code>p-accordion</code>，以及面板组件 <code>p-accordionTab</code>。当然也可以分为三个文件去定义组件和模块，这两种代码组织方式也是仁者见仁，智者见智的问题。</p>
+<h2 id="主题样式"><a href="#主题样式" class="headerlink" title="主题样式"></a>主题样式</h2><p>primeng 的主题样式采取了组件结构层样式（css）和表现层样式（scss）分离的策略，也即：</p>
+<ul>
+<li>结构层样式：只定义组件的结构相关的属性，例如 box-model 相关属性 <code>display</code>，<code>position</code>，<code>padding</code>，<code>margin</code>等</li>
+<li>表现层样式：定义组件展现的外观属性，例如 <code>border</code>，<code>color</code>，<code>background</code>，<code>transition</code>，<code>outline</code>，<code>box-shadow</code>等</li>
+</ul>
+<p>以 Button 为例，在 <code>src/app/components/button/button.css</code> 中，定义了按钮结构层相关样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Button */</span></div><div class="line"><span class="selector-class">.ui-button</span> &#123;</div><div class="line">    <span class="attribute">display</span>: inline-block;</div><div class="line">    <span class="attribute">position</span>: relative;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">margin-right</span>: .<span class="number">1em</span>;</div><div class="line">    <span class="attribute">text-decoration</span>: none <span class="meta">!important</span>;</div><div class="line">    <span class="attribute">cursor</span>: pointer;</div><div class="line">    <span class="attribute">text-align</span>: center;</div><div class="line">    <span class="attribute">zoom</span>: <span class="number">1</span>;</div><div class="line">    <span class="attribute">overflow</span>: visible; <span class="comment">/* the overflow property removes extra width in IE */</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.ui-button-icon-only</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">2em</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*button text element */</span></div><div class="line"><span class="selector-class">.ui-button</span> <span class="selector-class">.ui-button-text</span> &#123;</div><div class="line">    <span class="attribute">display</span>: block;</div><div class="line">    <span class="attribute">line-height</span>: normal;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 <code>src/assets/components/themes/_theme.scss</code> 中，定义了组件的一些基础表现层样式，例如所有的组件都包含有 <code>ui-widget</code> 类，该类定义如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ui-widget</span> &#123;</div><div class="line">    <span class="attribute">font-family</span>:  $fontFamily;</div><div class="line">    <span class="attribute">font-size</span>: $fontSize;</div><div class="line"></div><div class="line">    input, select, textarea, button &#123;</div><div class="line">        font-family:  $fontFamily;</div><div class="line">        font-size: $fontSize;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-pseudo">:active</span> &#123;</div><div class="line">        <span class="attribute">outline</span>: none;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.ui-widget-content</span> &#123;</div><div class="line">    <span class="attribute">border</span>: $contentBorderWidth solid $contentBorderColor;</div><div class="line">    <span class="attribute">background</span>: $contentBgColor;</div><div class="line">    <span class="attribute">color</span>: $contentTextColor;</div><div class="line"></div><div class="line">    a &#123;</div><div class="line">        color: $contentTextColor;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这两个样式类定义了所有组件的通用表现样式，例如字体、边框、背景色、前景色、链接颜色等。</p>
+<p>其中的变量，例如 <code>$fontFamily</code>，<code>$contentBorderWidth</code> 则在主题文件中去定义，primeng 提供了相当多的主题，你也可以很轻松的自定义自己的主题。</p>
+<p>例如，看下主题 <code>cruze</code> 的样式实现。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* src/assets/components/themes/cruze/theme.scss */</span></div><div class="line"></div><div class="line">$fontFamily: Segoe UI, Arial, sans-serif;</div><div class="line">$fontSize: 1em;</div><div class="line">$borderRadius: 6px;</div><div class="line">$disabledOpacity: 0.35;</div><div class="line"></div><div class="line">//Content</div><div class="line">$contentBorderWidth: 1px;</div><div class="line">$contentBorderColor: #dddddd;</div><div class="line">$contentBgColor: #ffffff;</div><div class="line">$contentTextColor: #444444;</div><div class="line"></div><div class="line"><span class="comment">/* ... */</span></div><div class="line"></div><div class="line">@<span class="keyword">import</span> <span class="string">'../_theme'</span>;</div></pre></td></tr></table></figure>
+<p>你也可以写一个自己的主题配置文件来实现轻松换肤的要求。</p>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>文档就是 <code>src/app/showcase</code> 模块，在该模块中引入了 <code>src/app/components</code> 中的组件，编写相应的帮助文档。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>primeng 暂时没有包含组件单元测试，只有在 e2e 文件夹有几个集成测试。</p>
+<p>个人建议如果时间精力足够的话，每个组件还是需要写上单测。</p>
+<p>后续有时间，会抽出几个有代表性的组件进行分析，敬请期待。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将让我在冬天有冰棍吃啦，^_^！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://otwtmlrnk.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E8%BD%AC%E8%B4%A6.jpeg" alt="zxhfighter WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://otwtmlrnk.bkt.clouddn.com/%E6%94%AF%E4%BB%98%E5%AE%9D%E8%BD%AC%E8%B4%A6.jpeg" alt="zxhfighter Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/primeng/" rel="tag"># primeng</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/01/webpack-amd/" rel="next" title="用 webpack 构建 AMD 项目">
+                <i class="fa fa-chevron-left"></i> 用 webpack 构建 AMD 项目
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div id="container"></div>
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+  var gitment = new Gitment({
+    owner: 'zxhfighter',
+    repo: 'zxhfighter.github.io',
+    oauth: {
+      client_id: '7fc67caf2df967fab029',
+      client_secret: '70769447d9845a485dffda6fd22d08f1028b0525',
+    },
+  })
+  gitment.render('container')
+  </script>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="zxhfighter" />
+          <p class="site-author-name" itemprop="name">zxhfighter</p>
+           
+              <p class="site-description motion-element" itemprop="description">frontend, angular, angularjs, typescript, rxjs, spa, ionic, vue, vue.js, react, native react, nativescript</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目结构"><span class="nav-number">1.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件设计"><span class="nav-number">2.</span> <span class="nav-text">组件设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#common-文件夹"><span class="nav-number">2.1.</span> <span class="nav-text">common 文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dom-文件夹"><span class="nav-number">2.2.</span> <span class="nav-text">dom 文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件例子"><span class="nav-number">2.3.</span> <span class="nav-text">组件例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题样式"><span class="nav-number">3.</span> <span class="nav-text">主题样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档"><span class="nav-number">4.</span> <span class="nav-text">文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zxhfighter</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script type="text/javascript" src="/js/src/screenfull.min.js?v=5.1.1"></script>
+
+</body>
+</html>
